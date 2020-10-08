@@ -10,10 +10,11 @@ class MyApp(QWidget):
       self.initUI()
 
   def initUI(self):
-      btn = QPushButton('Quit 고 자라', self)
+      btn = QPushButton('Quit 고 자라', self) #QPushButton 클래스 생성
+      #생성자 첫 번째 파라미터는 버튼에 입력될 텍스트, 두 번째는 버튼이 위치할 부모 위젯
       btn.move(50, 50)
       btn.resize(btn.sizeHint())
-      btn.clicked.connect(QCoreApplication.instance().quit)
+      btn.clicked.connect(QCoreApplication.instance().quit) #클릭하면 어플리케이션 종료
 
       self.setWindowTitle('Quit Button')
       self.setGeometry(300, 300, 300, 200)
