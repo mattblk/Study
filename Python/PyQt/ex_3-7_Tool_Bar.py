@@ -10,7 +10,7 @@ class MyApp(QMainWindow):
         self.initUI()
 
     def initUI(self):
-        exitAction = QAction(QIcon('\save.png'), 'Exit', self)
+        exitAction = QAction(QIcon('\exit.png'), 'Exit', self)
         exitAction.setShortcut('Ctrl+Q')
         exitAction.setStatusTip('Exit application')
         exitAction.triggered.connect(qApp.quit)
@@ -18,7 +18,7 @@ class MyApp(QMainWindow):
         self.statusBar()
 
         self.toolbar = self.addToolBar('Exit')
-        self.toolbar.addAction(exitAction)
+        self.toolbar.addAction(exitAction)E:\01_Project\00_GitHub_Repository\Study\Python\PyQt
 
         self.setWindowTitle('Toolbar')
         self.setGeometry(300, 300, 300, 200)
