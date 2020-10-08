@@ -15,14 +15,15 @@ class MyApp(QMainWindow):
         exitAction = QAction(QIcon("\exit.png"), 'Exit', self)
         exitAction.setShortcut('Ctrl+Q')
         exitAction.setStatusTip('Exit application')
-        #이 동작을 선택했을 때, 생성된 (triggered) 시그널이 QApplication 위젯의 quit() 메서드에 연결되고, 어플리케이션을 종료시키게 됩니다. 
+        #이 동작을 선택했을 때, 생성된 (triggered) 시그널이 QApplication 위젯의 quit() 메서드에 연결되고, 어플리케이션을 종료시키게 됩니다.
         exitAction.triggered.connect(qApp.quit)
 
-        self.statusBar()
+        self.statusBar().showMessage("Ready")
 
         menubar = self.menuBar()
         menubar.setNativeMenuBar(False)
-        filemenu = menubar.addMenu('&File')
+        filemenu = menubar.addMenu('&File') #'&File'의 앰퍼샌드 (ampersand, &)는 간편하게 단축키를 설정하도록 해줍니다.
+        # 'F' 앞에 앰퍼샌드가 있으므로 'Alt+F'가 File 메뉴의 단축키가 됩니다. 만약 'i'의 앞에 앰퍼샌드를 넣으면 'Alt+I'가 단축키가 됩니다.
         filemenu.addAction(exitAction)
 
         self.setWindowTitle('Menubar')
