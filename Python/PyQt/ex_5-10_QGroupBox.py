@@ -24,6 +24,7 @@ class MyApp(QWidget):
 
     def createFirstExclusiveGroup(self):
         groupbox = QGroupBox('Exclusive Radio Buttons')
+        # groupbox.setEnabled(False)
 
         radio1 = QRadioButton('Radio1')
         radio2 = QRadioButton('Radio2')
