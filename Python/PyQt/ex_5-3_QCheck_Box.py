@@ -20,6 +20,7 @@ class MyApp(QWidget):
         self.show()
 
     def changeTitle(self, state):
+        print(state)
         if state == Qt.Checked:
             self.setWindowTitle('QCheckBox')
         else:
