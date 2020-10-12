@@ -3,6 +3,10 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout, QVB
 import win32com.client
 from PyQt5.QtCore import QCoreApplication, Qt
 
+#pycatia import
+from pycatia import catia
+# pycatia를 통해서 viewpoint_3d 지정
+
 # Catia 연결
 CATIA = win32com.client.Dispatch('CATIA.application')
 def detact_CATIA() :
@@ -158,7 +162,7 @@ class MyApp(QWidget):
         else :
             checkbox.setChecked(False)
             checkbox.setEnabled(False)
-
+        CATIA.ActiveDocument.Selection.clear()
 
     def Search_and_Select(self, Search_Text):
         Search_Query = "Name=*" + Search_Text + "*" + ",all"
@@ -345,6 +349,8 @@ class MyApp(QWidget):
         View_Ctrl_Btn_Mirror=QPushButton('Mirror View')
 
         View_Ctrl_Btn_Save.clicked.connect(self.Get_View)
+        View_Ctrl_Btn_Restore.clicked.connect(self.Set_View)
+        View_Ctrl_Btn_Mirror.clicked.connect(self.Set_View_Mirror)
 
         View_Ctrl_Grid_2Lv.addWidget(self.View_Ctrl_Checkbox_Origin, 1, 0)
         View_Ctrl_Grid_2Lv.addWidget(self.View_Ctrl_Checkbox_Updir, 2, 0)
@@ -377,7 +383,7 @@ class MyApp(QWidget):
         View_Ctrl_H_Box_1Lv_Update.addStretch(1)
 
         View_Ctrl_V_Box_0Lv.addStretch(1)
-        View_Ctrl_V_Box_0Lv.addLayout(View_Ctrl_H_Box_1Lv_Update)
+        # View_Ctrl_V_Box_0Lv.addLayout(View_Ctrl_H_Box_1Lv_Update)
         View_Ctrl_V_Box_0Lv.addLayout(View_Ctrl_H_Box_1Lv)
         View_Ctrl_V_Box_0Lv.addStretch(1)
 
@@ -387,51 +393,95 @@ class MyApp(QWidget):
         return groupbox
 
     def Get_Origin(self) :
-        arr={7,7,7}
-        tup=(0,0,0)
-        print(arr)
-        CATIA.ActiveWindow.ActiveViewer.Viewpoint3D.GetOrigin(arr)
-        print(arr)
-        self.View_Ctrl_Line_Edit_O_x.setText(str(arr[0]))
-        self.View_Ctrl_Line_Edit_O_y.setText(str(arr[1]))
-        self.View_Ctrl_Line_Edit_O_z.setText(str(arr[2]))
+        view_point_3D = catia().active_window.active_viewer.create_viewer_3d().viewpoint_3d
+        origin = view_point_3D.get_origin()
+        self.View_Ctrl_Line_Edit_O_x.setText(str(origin[0]))
+        self.View_Ctrl_Line_Edit_O_y.setText(str(origin[1]))
+        self.View_Ctrl_Line_Edit_O_z.setText(str(origin[2]))
     def Set_Origin(self) :
-        pass
+        view_point_3D = catia().active_window.active_viewer.create_viewer_3d().viewpoint_3d
+        origin=[0,0,0]
+        origin[0] = float(self.View_Ctrl_Line_Edit_O_x.text())
+        origin[1] = float(self.View_Ctrl_Line_Edit_O_y.text())
+        origin[2] = float(self.View_Ctrl_Line_Edit_O_z.text())
+        view_point_3D.put_origin(origin)
+    def Set_Origin_Mirror(self) :
+        view_point_3D = catia().active_window.active_viewer.create_viewer_3d().viewpoint_3d
+        origin=[0,0,0]
+        origin[0] = float(self.View_Ctrl_Line_Edit_O_x.text())
+        origin[1] = - float(self.View_Ctrl_Line_Edit_O_y.text())
+        origin[2] = float(self.View_Ctrl_Line_Edit_O_z.text())
+        view_point_3D.put_origin(origin)
     def Get_UpDir(self) :
-        arr=[0 for i in range(3)]
-        # print(arr)
-        print(CATIA.ActiveWindow.ActiveViewer.Viewpoint3D.GetUpDirection(arr)[1])
-        self.View_Ctrl_Line_Edit_U_x.setText(str(arr[0]))
-        self.View_Ctrl_Line_Edit_U_y.setText(str(arr[1]))
-        self.View_Ctrl_Line_Edit_U_z.setText(str(arr[2]))
+        view_point_3D = catia().active_window.active_viewer.create_viewer_3d().viewpoint_3d
+        updir = view_point_3D.get_up_direction()
+        self.View_Ctrl_Line_Edit_U_x.setText(str(updir[0]))
+        self.View_Ctrl_Line_Edit_U_y.setText(str(updir[1]))
+        self.View_Ctrl_Line_Edit_U_z.setText(str(updir[2]))
     def Set_UpDir(self) :
-        pass
+        view_point_3D = catia().active_window.active_viewer.create_viewer_3d().viewpoint_3d
+        updir=[0,0,0]
+        updir[0] = float(self.View_Ctrl_Line_Edit_U_x.text())
+        updir[1] = float(self.View_Ctrl_Line_Edit_U_y.text())
+        updir[2] = float(self.View_Ctrl_Line_Edit_U_z.text())
+        view_point_3D.put_up_direction(updir)
+    def Set_UpDir_Mirror(self) :
+        view_point_3D = catia().active_window.active_viewer.create_viewer_3d().viewpoint_3d
+        updir=[0,0,0]
+        updir[0] = float(self.View_Ctrl_Line_Edit_U_x.text())
+        updir[1] = - float(self.View_Ctrl_Line_Edit_U_y.text())
+        updir[2] = float(self.View_Ctrl_Line_Edit_U_z.text())
+        view_point_3D.put_up_direction(updir)
     def Get_SDir(self) :
-        arr=[0 for i in range(3)]
-        # print(arr)
-        CATIA.ActiveWindow.ActiveViewer.Viewpoint3D.GetSightdirection(arr)
-        self.View_Ctrl_Line_Edit_S_x.setText(str(arr[0]))
-        self.View_Ctrl_Line_Edit_S_y.setText(str(arr[1]))
-        self.View_Ctrl_Line_Edit_S_z.setText(str(arr[2]))
+        view_point_3D = catia().active_window.active_viewer.create_viewer_3d().viewpoint_3d
+        sdir = view_point_3D.get_sight_direction()
+        self.View_Ctrl_Line_Edit_S_x.setText(str(sdir[0]))
+        self.View_Ctrl_Line_Edit_S_y.setText(str(sdir[1]))
+        self.View_Ctrl_Line_Edit_S_z.setText(str(sdir[2]))
     def Set_SDir(self) :
-        pass
+        view_point_3D = catia().active_window.active_viewer.create_viewer_3d().viewpoint_3d
+        sdir=[0,0,0]
+        sdir[0] = float(self.View_Ctrl_Line_Edit_S_x.text())
+        sdir[1] = float(self.View_Ctrl_Line_Edit_S_y.text())
+        sdir[2] = float(self.View_Ctrl_Line_Edit_S_z.text())
+        view_point_3D.put_sight_direction(sdir)
+    def Set_SDir_Mirror(self) :
+        view_point_3D = catia().active_window.active_viewer.create_viewer_3d().viewpoint_3d
+        sdir=[0,0,0]
+        sdir[0] = float(self.View_Ctrl_Line_Edit_S_x.text())
+        sdir[1] = - float(self.View_Ctrl_Line_Edit_S_y.text())
+        sdir[2] = float(self.View_Ctrl_Line_Edit_S_z.text())
+        view_point_3D.put_sight_direction(sdir)
     def Get_Zoom(self) :
         Current_Zoom = CATIA.ActiveWindow.ActiveViewer.Viewpoint3D.Zoom
         self.View_Ctrl_Line_Edit_Zoom.setText(str(Current_Zoom))
     def Set_Zoom(self) :
-        pass
-
+        zoom = float(self.View_Ctrl_Line_Edit_Zoom.text())
+        CATIA.ActiveWindow.ActiveViewer.Viewpoint3D.Zoom = zoom
     def Get_View(self) :
-        if self.View_Ctrl_Checkbox_Zoom.isChecked() :
-            self.Get_Zoom()
+        self.Get_Zoom()
+        self.Get_Origin()
+        self.Get_UpDir()
+        self.Get_SDir()
+    def Set_View(self) :
         if self.View_Ctrl_Checkbox_Origin.isChecked() :
-            self.Get_Origin()
-        if self.View_Ctrl_Checkbox_Updir.isChecked() :
-            self.Get_UpDir()
+            self.Set_Origin()
         if self.View_Ctrl_Checkbox_Sdir.isChecked() :
-            self.Get_SDir()
-
-
+            self.Set_SDir()
+        if self.View_Ctrl_Checkbox_Updir.isChecked() :
+            self.Set_UpDir()
+        if self.View_Ctrl_Checkbox_Zoom.isChecked() :
+            self.Set_Zoom()
+        CATIA.ActiveDocument.Selection.Search("Name=*xy plane* ,all")
+        CATIA.ActiveDocument.Selection.Clear()
+    def Set_View_Mirror(self) :
+        self.Get_View()
+        self.Set_Origin_Mirror()
+        self.Set_SDir_Mirror()
+        self.Set_UpDir_Mirror()
+        self.Set_Zoom()
+        CATIA.ActiveDocument.Selection.Search("Name=*xy plane* ,all")
+        CATIA.ActiveDocument.Selection.Clear()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
