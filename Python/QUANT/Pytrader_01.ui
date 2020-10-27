@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1037</width>
-    <height>819</height>
+    <width>1275</width>
+    <height>1020</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>PyTrader v0.2</string>
+   <string>PyTrader v0.4</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -251,7 +251,7 @@
      <rect>
       <x>310</x>
       <y>10</y>
-      <width>711</width>
+      <width>951</width>
       <height>621</height>
      </rect>
     </property>
@@ -275,7 +275,7 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>691</width>
+       <width>931</width>
        <height>101</height>
       </rect>
      </property>
@@ -325,7 +325,7 @@
       <rect>
        <x>10</x>
        <y>140</y>
-       <width>691</width>
+       <width>931</width>
        <height>421</height>
       </rect>
      </property>
@@ -363,7 +363,7 @@
     <widget class="QCheckBox" name="checkBox">
      <property name="geometry">
       <rect>
-       <x>430</x>
+       <x>690</x>
        <y>590</y>
        <width>151</width>
        <height>20</height>
@@ -376,7 +376,7 @@
     <widget class="QPushButton" name="pushButton_look">
      <property name="geometry">
       <rect>
-       <x>590</x>
+       <x>830</x>
        <y>580</y>
        <width>112</width>
        <height>34</height>
@@ -387,14 +387,73 @@
      </property>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>630</y>
+      <width>951</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Agency FB</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>자동 선정 종목 리스트</string>
+    </property>
+    <widget class="QTableWidget" name="tableWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>931</width>
+       <height>281</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>주문유형</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>종목명</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>호가구분</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>수량</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>가격</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>상태</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1037</width>
-     <height>31</height>
+     <width>1275</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
