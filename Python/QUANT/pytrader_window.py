@@ -135,11 +135,13 @@ class MyWindow(QMainWindow, form_class):
 
     def load_buy_sell_list(self):
         # 파일 읽어서 데이터 긁어오고 (인코딩에러 조심)
-        f = open("buy_list.txt", 'rt', encoding='UTF8')
+        # f = open("buy_list.txt", 'rt', encoding='UTF8')
+        f = open("buy_list.txt", 'rt')
         buy_list = f.readlines()
         f.close()
 
-        f = open("sell_list.txt", 'rt', encoding='UTF8')
+        # f = open("sell_list.txt", 'rt', encoding='UTF8')
+        f = open("sell_list.txt", 'rt')
         sell_list = f.readlines()
         f.close()
         
@@ -177,11 +179,13 @@ class MyWindow(QMainWindow, form_class):
     def trade_stocks(self):
         hoga_lookup = {'지정가': "00", '시장가': "03"}
 
-        f = open("buy_list.txt", 'rt', encoding='UTF8')
+        # f = open("buy_list.txt", 'rt', encoding='UTF8')
+        f = open("buy_list.txt", 'rt')
         buy_list = f.readlines()
         f.close()
 
-        f = open("sell_list.txt", 'rt', encoding='UTF8')
+        # f = open("sell_list.txt", 'rt', encoding='UTF8')
+        f = open("sell_list.txt", 'rt')
         sell_list = f.readlines()
         f.close()
 
